@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Danh sách Lịch Chiếu</title>
+</head>
+<body>
+<h1>Danh sách Lịch Chiếu Phim</h1>
+
+<form method="get" action="/showtimes">
+  <label>Phim:</label>
+  <select name="movieId">
+    <option value="">-- Tất cả --</option>
+    <option th:each="m : ${movies}"
+            th:value="${m.id}"
+            th:selected="${m.id == selectedMovieId}"
+            th:text="${m.title}"></option>
+  </select>
+
+  <label>Phòng chiếu:</label>
+  <select name="screenRoomId">
+    <option value="">-- Tất cả --</option>
+    <option th:each="sr : ${screenRooms}"
+            th:value="${sr.id}"
+            th:selected="${sr.id == selectedScreenRoomId}"
+            th:text="${sr.name}"></option>
+  </select>
+
+  <label>Ngày chiếu:</label>
+  <input type="date" name="date" th:value="${selectedDate}" />
+
+  <button type="submit">Lọc</button>
+  <a href="/showtimes">Xóa lọc</a>
+</form>
+
+<br>
+<a href="/showtimes/add">+ Thêm lịch chiếu mới</a>
+
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Phim</th>
+    <th>Phòng chiếu</th>
+    <th>Bắt đầu</th>
+    <th>Kết thúc</th>
+    <th>Số ghế trống</th>
+    <th>Hành động</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="s : ${schedules}">
+    <td th:text="${s.id}"></td>
+    <td th:text="${s.movie.title}"></td>
+    <td th:text="${s.screenRoom.name}"></td>
+    <td th:text="${#temporals.format(s.startTime, 'yyyy-MM-dd HH:mm')}"></td>
+    <td th:text="${#temporals.format(s.endTime, 'yyyy-MM-dd HH:mm')}"></td>
+
+    <td th:text="${s.numberSeatEmpty}"></td>
+    <td>
+      <a th:href="@{'/showtimes/edit/' + ${s.id}}">Sửa</a>
+      <form th:action="@{'/showtimes/delete/' + ${s.id}}" method="post" style="display:inline;">
+        <button type="submit" onclick="return confirm('Xóa lịch chiếu này?')">Xóa</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

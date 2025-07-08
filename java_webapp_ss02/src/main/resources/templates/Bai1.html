@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Giới thiệu JPA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f5f5f5;
+      line-height: 1.6;
+    }
+    .content {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="content">
+  <h1>Giới thiệu JPA</h1>
+  <p><strong>JPA (Java Persistence API)</strong> là một đặc tả (specification) của Java EE (nay là Jakarta EE) dùng để quản lý dữ liệu trong cơ sở dữ liệu quan hệ thông qua mô hình hướng đối tượng. JPA <strong>không phải là framework</strong>, mà là <strong>chuẩn chung</strong> để các thư viện ORM như Hibernate, EclipseLink, hay OpenJPA triển khai. Trong đó, <strong>Hibernate là implementation phổ biến nhất</strong> và là mặc định khi dùng JPA trong Spring Boot.</p>
+
+  <p>JPA cung cấp các annotation như <code>@Entity</code>, <code>@Id</code>, <code>@OneToMany</code> để ánh xạ giữa các class Java và bảng dữ liệu. Việc tích hợp JPA trong Spring Boot thông qua <code>spring-boot-starter-data-jpa</code> giúp giảm code xử lý database, dễ maintain, và tách biệt logic khỏi công nghệ cụ thể. Tóm lại, JPA giúp chuẩn hóa cách tương tác với CSDL trong Java, còn Hibernate giúp hiện thực hóa đặc tả đó một cách hiệu quả.</p>
+</div>
+
+</body>
+</html>

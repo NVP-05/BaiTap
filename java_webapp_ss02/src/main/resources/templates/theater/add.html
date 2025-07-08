@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm Rạp</title>
+</head>
+<body>
+<h1>Thêm Rạp Chiếu</h1>
+<form th:action="@{/theaters/add}" method="post" th:object="${theater}">
+    <label>Tên rạp:</label>
+    <input type="text" th:field="*{name}" required/><br/>
+
+    <label>Địa chỉ:</label>
+    <input type="text" th:field="*{address}" required/><br/>
+
+    <button type="submit">Lưu</button>
+    <a href="/theaters">Hủy</a>
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Phòng Chiếu</title>
+</head>
+<body>
+<h1>Danh sách Phòng Chiếu</h1>
+
+<a href="/screen-rooms/add">Thêm phòng chiếu mới</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên phòng</th>
+        <th>Sức chứa</th>
+        <th>Rạp</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${screenRooms}">
+        <td th:text="${room.id}"></td>
+        <td th:text="${room.name}"></td>
+        <td th:text="${room.capacity}"></td>
+        <td th:text="${room.theater.name}"></td>
+        <td>
+            <a th:href="@{'/screen-rooms/edit/' + ${room.id}}">Sửa</a>
+            <form th:action="@{'/screen-rooms/delete/' + ${room.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Xóa phòng chiếu này?')">Xóa</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
