@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách nhân viên</title>
+</head>
+<body>
+<h2>Danh sách Nhân Viên</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Họ tên</th>
+        <th>Email</th>
+        <th>SĐT</th>
+        <th>Lương</th>
+        <th>Ngày tạo</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="emp : ${employeePage.content}">
+        <td th:text="${emp.name}"></td>
+        <td th:text="${emp.email}"></td>
+        <td th:text="${emp.phoneNumber}"></td>
+        <td th:text="${emp.salary}"></td>
+        <td th:text="${emp.created_at}"></td>
+        <td>
+            <a th:href="@{'/employees/edit/' + ${emp.id}}">Sửa</a>
+            <a th:href="@{'/employees/delete/' + ${emp.id}}">Xoa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<!-- Phân trang -->
+<div>
+    <span th:text="'Trang ' + (${employeePage.number} + 1) + '/' + ${employeePage.totalPages}"></span>
+    <div>
+        <ul style="list-style: none; display: flex; gap: 10px; padding: 0;">
+            <!-- Nút 'Trước' -->
+            <li th:if="${employeePage.hasPrevious()}">
+                <a th:href="@{/employees(page=${employeePage.number - 1})}">« Trước</a>
+            </li>
+
+            <!-- Danh sách số trang -->
+            <li th:each="i : ${#numbers.sequence(0, employeePage.totalPages - 1)}">
+                <a th:href="@{/employees(page=${i})}"
+                   th:text="${i + 1}"
+                   th:class="${i == employeePage.number} ? 'current-page' : ''">
+                </a>
+            </li>
+
+            <!-- Nút 'Sau' -->
+            <li th:if="${employeePage.hasNext()}">
+                <a th:href="@{/employees(page=${employeePage.number + 1})}">Sau »</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br/>
+<a th:href="@{/employees/add}">+ Thêm nhân viên</a>
+</body>
+</html>
