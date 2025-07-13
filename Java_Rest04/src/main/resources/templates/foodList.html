@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách thực phẩm</title>
+</head>
+<body>
+<h2>Danh sách thực phẩm</h2>
+
+<form method="get" th:action="@{/foodItems}">
+    <label>Tìm kiếm:</label>
+    <input type="text" name="name" th:value="${name}">
+    <label>Danh mục:</label>
+    <input type="text" name="category" th:value="${category}">
+    <button type="submit">Lọc</button>
+</form>
+
+<a th:href="@{/foodItems/add}">Thêm thực phẩm mới</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Tên</th>
+        <th>Danh mục</th>
+        <th>Giá</th>
+        <th>Hạn sử dụng</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="food : ${foodPage}">
+        <td th:text="${food.name}"></td>
+        <td th:text="${food.category}"></td>
+        <td th:text="${food.price} + ' VNĐ'"></td>
+        <td th:text="${food.expirationDate}"></td>
+        <td>
+            <a th:href="@{'/foodItems/edit/' + ${food.id}}">Sửa</a> |
+            <form th:action="@{'/foodItems/delete/' + ${food.id}}" method="post" style="display:inline">
+                <button type="submit" onclick="return confirm('Xác nhận xóa?')">Xóa</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<div>
+    <a th:if="${currentPage > 0}" th:href="@{/flights(page=${currentPage - 1})}">Trang trước</a>
+    <span>Trang [[${currentPage + 1}]]</span>
+    <a th:if="${!lastPage}" th:href="@{/flights(page=${currentPage + 1})}">Trang sau</a>
+</div>
+
+</body>
+</html>

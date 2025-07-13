@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thực phẩm</title>
+</head>
+<body>
+<h2 th:text="${food.id == null} ? 'Thêm thực phẩm mới' : 'Cập nhật thông tin thực phẩm'"></h2>
+
+<form th:action="@{${food.id == null} ? '/foodItems/add' : '/foodItems/edit'}" method="post">
+    <input type="hidden" th:if="${food.id != null}" name="id" th:value="${food.id}" />
+
+    <label>Tên thực phẩm:</label>
+    <input type="text" name="name" th:value="${food.name}" required><br>
+
+    <label>Danh mục:</label>
+    <input type="text" name="category" th:value="${food.category}" required><br>
+
+    <label>Giá:</label>
+    <input type="number" name="price" step="0.01" th:value="${food.price}" required><br>
+
+    <label>Hạn sử dụng:</label>
+    <input type="date" name="expirationDate" th:value="${food.expirationDate}" required><br>
+
+    <button type="submit">Lưu</button>
+    <a th:href="@{/foodItems}">Quay lại</a>
+</form>
+
+</body>
+</html>

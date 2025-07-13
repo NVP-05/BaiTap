@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách sách</title>
+</head>
+<body>
+<h2>Danh sách sách</h2>
+
+<a th:href="@{/books/add}">Thêm sách mới</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tiêu đề</th>
+        <th>Tác giả</th>
+        <th>Nhà xuất bản</th>
+        <th>Năm</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${bookPage}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publisher}"></td>
+        <td th:text="${book.year}"></td>
+        <td>
+            <a th:href="@{'/books/edit/' + ${book.id}}">Sửa</a>
+            <form th:action="@{'/books/delete/' + ${book.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Xác nhận xóa?')">Xóa</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <span th:if="${bookPage.hasPrevious()}">
+        <a th:href="@{/books(page=${bookPage.number - 1})}">Trang trước</a>
+    </span>
+
+    <span>Trang <span th:text="${bookPage.number + 1}"></span> / <span th:text="${bookPage.totalPages}"></span></span>
+
+    <span th:if="${bookPage.hasNext()}">
+        <a th:href="@{/books(page=${bookPage.number + 1})}">Trang sau</a>
+    </span>
+</div>
+</body>
+</html>

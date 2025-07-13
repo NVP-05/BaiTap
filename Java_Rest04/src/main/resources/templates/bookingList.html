@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách vé đã đặt</title>
+</head>
+<body>
+<h2>Tra cứu vé đã đặt</h2>
+
+<form th:action="@{/bookingFlights}" method="get">
+    <label>Nhập số điện thoại:</label>
+    <input type="text" name="phone" th:value="${phone}"/>
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<div th:if="${flightPage != null and flightPage.content.size() > 0}">
+    <h3>Kết quả:</h3>
+    <div th:each="booking : ${flightPage.content}" style="border:1px solid #ccc; margin: 10px; padding: 10px;">
+        <p><strong>Tên khách hàng:</strong> <span th:text="${booking.customerName}"></span></p>
+        <p><strong>Chuyến bay:</strong>
+            <span th:text="${booking.flight.flightNumber}"></span>
+            (<span th:text="${booking.flight.departure}"></span> →
+            <span th:text="${booking.flight.destination}"></span>)
+        </p>
+        <p><strong>Thời gian đặt:</strong> <span
+                th:text="${#temporals.format(booking.bookingTime, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p><strong>Trạng thái:</strong>
+            <span th:text="${booking.status ? 'BOOKED' : 'CANCELLED'}"></span>
+        </p>
+        <form th:action="@{/bookingFlights/booking/cancel}" method="post" th:if="${booking.status == true}">
+            <input type="hidden" name="bookingId" th:value="${booking.id}"/>
+            <button type="submit">Hủy vé</button>
+        </form>
+    </div>
+</div>
+
+<div th:if="${flightPage != null and flightPage.content.size() == 0}">
+    <p>Không tìm thấy vé nào.</p>
+</div>
+<div th:if="${flightPage != null}">
+    <div>
+        <a th:if="${currentPage > 0}"
+           th:href="@{/bookingFlights(page=${currentPage - 1}, phone=${phone})}">
+            Trang trước
+        </a>
+        <span>Trang [[${currentPage + 1}]]</span>
+        <a th:if="${!lastPage}"
+           th:href="@{/bookingFlights(page=${currentPage + 1}, phone=${phone})}">
+            Trang sau
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

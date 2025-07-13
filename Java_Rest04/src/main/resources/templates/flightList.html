@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách chuyến bay</title>
+</head>
+<body>
+<h2>Danh sách chuyến bay</h2>
+
+<form method="get" th:action="@{/flights}">
+    <label>Điểm khởi hành:</label>
+    <input type="text" name="departure" th:value="${departure}">
+    <label>Điểm đến:</label>
+    <input type="text" name="destination" th:value="${destination}">
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<div th:each="flight : ${flightPage}">
+    <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+        <p><strong>Số hiệu:</strong> <span th:text="${flight.flightNumber}"></span></p>
+        <p><strong>Khởi hành:</strong> <span th:text="${flight.departure}"></span></p>
+        <p><strong>Điểm đến:</strong> <span th:text="${flight.destination}"></span></p>
+        <p><strong>Giá:</strong> <span th:text="${flight.price}"></span></p>
+        <form th:action="@{/booking/new}" method="get">
+            <input type="hidden" name="flightId" th:value="${flight.id}" />
+            <button type="submit">Đặt vé</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a th:if="${currentPage > 0}" th:href="@{/flights(page=${currentPage - 1})}">Trang trước</a>
+    <span>Trang [[${currentPage + 1}]]</span>
+    <a th:if="${!lastPage}" th:href="@{/flights(page=${currentPage + 1})}">Trang sau</a>
+</div>
+</body>
+</html>
