@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quy tắc đặt tên trong RESTful API</title>
+</head>
+<body>
+<h1>Quy tắc đặt tên</h1>
+<p>Quy tắc đặt tên là tập hợp các nguyên tắc giúp đảm bảo các endpoint, tài nguyên, và tham số được đặt tên một cách nhất quán, dễ hiểu, và tuân theo chuẩn REST. Một Naming Convention tốt giúp:</p>
+<ul>
+    <li>Tăng tính đọc hiểu (readability) cho các nhà phát triển.</li>
+    <li>Đảm bảo tính nhất quán trong thiết kế API.</li>
+    <li>Dễ dàng bảo trì và mở rộng API.</li>
+</ul>
+
+<h2>1. Tài nguyên chính</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Tên tiếng Việt</th>
+        <th>Tên tài nguyên (resource)</th>
+        <th>Endpoint gốc (base path)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Sách</td>
+        <td>Book</td>
+        <td>/books</td>
+    </tr>
+    <tr>
+        <td>Tác giả</td>
+        <td>Author</td>
+        <td>/authors</td>
+    </tr>
+    <tr>
+        <td>Thể loại</td>
+        <td>Category</td>
+        <td>/categories</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>2. Các phương thức HTTP & Endpoint mẫu</h2>
+
+<h3>2.1. Sách (/books)</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Hành động</th>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Mô tả</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Lấy danh sách sách</td>
+        <td>GET</td>
+        <td>/books</td>
+        <td>Trả về danh sách tất cả sách</td>
+    </tr>
+    <tr>
+        <td>Lấy sách theo ID</td>
+        <td>GET</td>
+        <td>/books/{id}</td>
+        <td>Trả về thông tin sách cụ thể</td>
+    </tr>
+    <tr>
+        <td>Thêm sách mới</td>
+        <td>POST</td>
+        <td>/books</td>
+        <td>Tạo sách mới</td>
+    </tr>
+    <tr>
+        <td>Cập nhật sách</td>
+        <td>PUT</td>
+        <td>/books/{id}</td>
+        <td>Cập nhật toàn bộ sách</td>
+    </tr>
+    <tr>
+        <td>Xoá sách</td>
+        <td>DELETE</td>
+        <td>/books/{id}</td>
+        <td>Xoá sách theo ID</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>2.2. Tác giả (/authors)</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Hành động</th>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Mô tả</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Lấy danh sách tác giả</td>
+        <td>GET</td>
+        <td>/authors</td>
+        <td>Trả về danh sách tác giả</td>
+    </tr>
+    <tr>
+        <td>Lấy tác giả theo ID</td>
+        <td>GET</td>
+        <td>/authors/{id}</td>
+        <td>Trả về thông tin tác giả</td>
+    </tr>
+    <tr>
+        <td>Thêm tác giả mới</td>
+        <td>POST</td>
+        <td>/authors</td>
+        <td>Tạo tác giả mới</td>
+    </tr>
+    <tr>
+        <td>Cập nhật tác giả</td>
+        <td>PUT</td>
+        <td>/authors/{id}</td>
+        <td>Cập nhật thông tin tác giả</td>
+    </tr>
+    <tr>
+        <td>Xoá tác giả</td>
+        <td>DELETE</td>
+        <td>/authors/{id}</td>
+        <td>Xoá tác giả theo ID</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>2.3. Thể loại (/categories)</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Hành động</th>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Mô tả</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Lấy danh sách thể loại</td>
+        <td>GET</td>
+        <td>/categories</td>
+        <td>Trả về danh sách thể loại</td>
+    </tr>
+    <tr>
+        <td>Lấy thể loại theo ID</td>
+        <td>GET</td>
+        <td>/categories/{id}</td>
+        <td>Trả về thông tin thể loại</td>
+    </tr>
+    <tr>
+        <td>Thêm thể loại mới</td>
+        <td>POST</td>
+        <td>/categories</td>
+        <td>Tạo thể loại mới</td>
+    </tr>
+    <tr>
+        <td>Cập nhật thể loại</td>
+        <td>PUT</td>
+        <td>/categories/{id}</td>
+        <td>Cập nhật thông tin thể loại</td>
+    </tr>
+    <tr>
+        <td>Xoá thể loại</td>
+        <td>DELETE</td>
+        <td>/categories/{id}</td>
+        <td>Xoá thể loại theo ID</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>3. Nguyên tắc bổ sung</h2>
+<ul>
+    <li><strong>Không dùng động từ trong endpoint:</strong> ❌ /getAllBooks → ✅ /books</li>
+    <li><strong>Dùng danh từ số nhiều:</strong> /books, /authors, /categories</li>
+    <li><strong>Dùng path parameters cho tài nguyên con:</strong> /books/{id}/authors</li>
+    <li><strong>Dùng query parameters để lọc/tìm kiếm:</strong> /books?title=java&category=backend</li>
+</ul>
+
+</body>
+</html>
