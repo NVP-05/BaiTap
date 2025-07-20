@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Các cấp độ log</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #555;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+  </style>
+</head>
+<body>
+<h1>Các cấp độ log</h1>
+<p>Dưới đây là các cấp độ logging phổ biến, từ thấp đến cao về mức độ nghiêm trọng:</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Cấp độ</th>
+    <th>Mô tả</th>
+    <th>Ví dụ khi sử dụng</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><strong>TRACE</strong></td>
+    <td>Chi tiết nhất, dùng để theo dõi từng bước xử lý nhỏ trong chương trình.</td>
+    <td>Ghi lại từng bước trong thuật toán sắp xếp hoặc vòng lặp xử lý lớn.</td>
+  </tr>
+  <tr>
+    <td><strong>DEBUG</strong></td>
+    <td>Dùng để ghi log phục vụ lập trình viên trong quá trình phát triển, giúp theo dõi biến, logic.</td>
+    <td>Hiển thị giá trị biến trong hàm xử lý dữ liệu.</td>
+  </tr>
+  <tr>
+    <td><strong>INFO</strong></td>
+    <td>Thông tin bình thường về tiến trình chạy của ứng dụng.</td>
+    <td>Ghi lại khi ứng dụng khởi động xong, user đăng nhập thành công.</td>
+  </tr>
+  <tr>
+    <td><strong>WARN</strong></td>
+    <td>Cảnh báo có vấn đề bất thường nhưng không làm ứng dụng crash.</td>
+    <td>Thiếu cấu hình không bắt buộc, gọi API bị chậm.</td>
+  </tr>
+  <tr>
+    <td><strong>ERROR</strong></td>
+    <td>Lỗi nghiêm trọng ảnh hưởng đến chức năng, cần được xử lý.</td>
+    <td>Gọi database thất bại, xử lý exception không mong muốn.</td>
+  </tr>
+  <tr>
+    <td><strong>FATAL</strong></td>
+    <td>Lỗi nghiêm trọng làm ứng dụng không thể tiếp tục chạy.</td>
+    <td>Không thể kết nối database lúc khởi động, thiếu file cấu hình hệ thống.</td>
+  </tr>
+  </tbody>
+</table>
+
+<p><strong>Lưu ý:</strong> Khi triển khai ứng dụng thực tế, thường chỉ bật INFO/WARN/ERROR trong môi trường production, còn TRACE/DEBUG chủ yếu dùng trong quá trình dev và test.</p>
+</body>
+</html>

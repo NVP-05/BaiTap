@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logging là gì?</title>
+</head>
+<body>
+<h1>Logging là gì?</h1>
+<p><strong>Logging</strong> là quá trình ghi lại các thông tin, sự kiện, lỗi hoặc hành vi xảy ra trong quá trình chạy của một ứng dụng. Các thông tin này thường được lưu vào console, file log, hoặc hệ thống giám sát.</p>
+
+<h2>Tại sao cần logging trong ứng dụng?</h2>
+<ul>
+    <li><strong>Hỗ trợ gỡ lỗi:</strong> Giúp lập trình viên phát hiện và sửa lỗi dễ dàng hơn bằng cách theo dõi luồng xử lý và các sự kiện xảy ra.</li>
+    <li><strong>Giám sát hệ thống:</strong> Cho phép theo dõi hoạt động của ứng dụng theo thời gian thực để xử lý sự cố kịp thời.</li>
+    <li><strong>Kiểm tra bảo mật:</strong> Ghi lại các hành động quan trọng để phục vụ điều tra và bảo vệ hệ thống khỏi truy cập trái phép.</li>
+</ul>
+
+<h2>Ví dụ Logging trong Java</h2>
+<pre>
+<code>
+import java.util.logging.Logger;
+
+public class LoggingExample {
+    private static final Logger logger = Logger.getLogger(LoggingExample.class.getName());
+
+    public static void main(String[] args) {
+        logger.info("Ứng dụng bắt đầu chạy");
+        try {
+            int result = 10 / 0;
+        } catch (Exception e) {
+            logger.severe("Đã xảy ra lỗi: " + e.getMessage());
+        }
+        logger.info("Ứng dụng kết thúc");
+    }
+}
+</code>
+    </pre>
+</body>
+</html>
