@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giải mã và phân tích JWT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Giải mã và phân tích JWT</h1>
+
+<h2>1. Mục tiêu</h2>
+<ul>
+    <li>Biết cách giải mã một JWT.</li>
+    <li>Phân tích các trường trong payload và hiểu ý nghĩa của chúng.</li>
+</ul>
+
+<h2>2. Chuỗi JWT mẫu</h2>
+<p>Dưới đây là một chuỗi JWT giả định:</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikx1b25nIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></pre>
+
+<h2>3. Giải mã JWT</h2>
+<p>Có thể dùng công cụ <a href="https://jwt.io" target="_blank">https://jwt.io</a> hoặc viết đoạn mã như sau (JavaScript):</p>
+<pre><code>
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikx1b25nIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+const payload = JSON.parse(atob(token.split('.')[1]));
+console.log(payload);
+    </code></pre>
+
+<p>Kết quả:</p>
+<pre><code>{
+  "sub": "1234567890",
+  "name": "Luong",
+  "iat": 1516239022
+}</code></pre>
+
+<h2>4. Giải thích các trường trong payload</h2>
+<ul>
+    <li><code>sub</code> (Subject): ID của người dùng hoặc chủ thể liên quan đến token (ở đây là userId).</li>
+    <li><code>name</code>: Tên người dùng – có thể là tên hiển thị.</li>
+    <li><code>iat</code> (Issued At): Thời điểm token được phát hành, tính bằng Unix timestamp (epoch time).</li>
+</ul>
+
+<h2>5. Nhận xét về bảo mật</h2>
+<p class="warning">⚠ Nếu JWT bị lộ, attacker có thể đọc thông tin trong payload dễ dàng vì nó chỉ được <strong>mã hóa Base64</strong>, <u>không phải mã hóa bảo mật</u>.</p>
+<ul>
+    <li>Không nên nhúng dữ liệu nhạy cảm (số CMND, số thẻ, mật khẩu...) vào payload.</li>
+    <li>Nếu cần, phải mã hóa nội dung payload trước khi tạo JWT.</li>
+    <li>Token cần có thời gian hết hạn ngắn để giảm rủi ro khi bị lộ.</li>
+</ul>
+
+<h2>6. Kết luận</h2>
+<p>Giải mã JWT rất đơn giản, nhưng cần cẩn trọng với nội dung đưa vào payload vì ai cũng có thể đọc được. Hãy chỉ dùng JWT để chứa thông tin nhận dạng đơn giản và luôn ký số để đảm bảo tính toàn vẹn.</p>
+
+</body>
+</html>

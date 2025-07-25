@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quy trình hoạt động của JWT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .step {
+            margin-bottom: 15px;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .note {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        ol {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Quy trình hoạt động của JWT</h1>
+
+<h2>1. Mục tiêu</h2>
+<ul>
+    <li>Hiểu quy trình xác thực người dùng bằng JWT trong hệ thống REST API.</li>
+    <li>Nắm được vòng đời của JWT: từ đăng nhập → nhận token → truy cập tài nguyên bảo vệ.</li>
+</ul>
+
+<h2>2. Quy trình xác thực JWT</h2>
+
+<ol>
+    <li class="step">
+        <span class="step-title">[1] Người dùng đăng nhập</span><br>
+        Client gửi yêu cầu đăng nhập (username + password) đến server qua API:
+        <code>POST /login</code>
+    </li>
+
+    <li class="step">
+        <span class="step-title">[2] Server xác thực thông tin</span><br>
+        Server kiểm tra username và password. Nếu hợp lệ, server tạo JWT chứa thông tin user (userId, role...) và ký bằng secret key.
+    </li>
+
+    <li class="step">
+        <span class="step-title">[3] Server gửi JWT về client</span><br>
+        Token được trả về qua response:
+        <pre><code>{
+  "token": "eyJhbGciOiJIUzI1NiIsInR..."
+}</code></pre>
+        <span class="note">Client lưu token này ở localStorage hoặc memory.</span>
+    </li>
+
+    <li class="step">
+        <span class="step-title">[4] Client gửi request kèm JWT</span><br>
+        Ở các request sau, client gửi token kèm theo Header:
+        <pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+    </li>
+
+    <li class="step">
+        <span class="step-title">[5] Server kiểm tra token</span><br>
+        - Giải mã token<br>
+        - Kiểm tra chữ ký (signature)<br>
+        - Kiểm tra thời gian hết hạn (`exp` trong payload)<br>
+        Nếu hợp lệ → cho phép truy cập, ngược lại → trả lỗi 401 Unauthorized.
+    </li>
+
+    <li class="step">
+        <span class="step-title">[6] Server xử lý và phản hồi</span><br>
+        Nếu token hợp lệ, server xử lý request và trả về dữ liệu tương ứng.
+    </li>
+</ol>
+
+<h2>3. Vai trò của từng bước</h2>
+<ul>
+    <li><strong>Đăng nhập:</strong> Bắt đầu quá trình xác thực, xác minh người dùng.</li>
+    <li><strong>Phát hành JWT:</strong> Cung cấp token để client dùng cho các lần truy cập sau.</li>
+    <li><strong>Gửi token:</strong> Xác định danh tính người dùng mà không cần đăng nhập lại.</li>
+    <li><strong>Kiểm tra token:</strong> Đảm bảo token còn hiệu lực và chưa bị sửa đổi.</li>
+    <li><strong>Phản hồi:</strong> Chỉ trả dữ liệu nếu xác thực thành công.</li>
+</ul>
+
+<h2>4. Kết luận</h2>
+<p>JWT giúp xác thực nhanh chóng, không cần lưu session trên server. Tuy nhiên, cần bảo vệ token kỹ lưỡng để tránh bị đánh cắp.</p>
+
+</body>
+</html>

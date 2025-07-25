@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tổng quan về JWT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-family: monospace;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            overflow-x: auto;
+        }
+        ul {
+            margin-top: 0;
+        }
+        .good { color: green; }
+        .bad { color: red; }
+    </style>
+</head>
+<body>
+
+<h1>Tổng quan về JWT</h1>
+
+<h2>1. JWT là gì?</h2>
+<p>JWT (JSON Web Token) là một chuẩn mã hóa JSON dùng để truyền thông tin giữa hai bên một cách an toàn dưới dạng một chuỗi token. Thường dùng trong xác thực (authentication) và phân quyền (authorization) trong các ứng dụng web.</p>
+
+<h2>2. Ưu điểm</h2>
+<ul class="good">
+    <li><strong>Stateless:</strong> Không cần lưu session ở server, dễ mở rộng.</li>
+    <li><strong>Gọn nhẹ:</strong> Dễ truyền qua HTTP Header hoặc URL.</li>
+    <li><strong>Tốc độ:</strong> Xác thực nhanh vì không cần gọi DB.</li>
+    <li><strong>Linh hoạt:</strong> Có thể nhúng thêm thông tin trong payload.</li>
+</ul>
+
+<h2>3. Nhược điểm</h2>
+<ul class="bad">
+    <li><strong>Không thể thu hồi:</strong> Nếu token bị lộ, khó thu hồi nếu không có blacklist.</li>
+    <li><strong>Payload không mã hóa:</strong> Có thể bị đọc nếu không mã hóa thêm.</li>
+    <li><strong>Kích thước lớn:</strong> So với session ID thì to hơn, tốn băng thông.</li>
+</ul>
+
+<h2>4. Cấu trúc JWT</h2>
+<p>Một JWT gồm 3 phần, phân tách bằng dấu chấm <code>.</code>:</p>
+<pre><code>header.payload.signature</code></pre>
+
+<p>Ví dụ:</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikx1b25nIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></pre>
+
+<h3>Header</h3>
+<pre><code>{
+  "alg": "HS256",
+  "typ": "JWT"
+}</code></pre>
+
+<h3>Payload</h3>
+<pre><code>{
+  "sub": "1234567890",
+  "name": "Luong",
+  "iat": 1516239022
+}</code></pre>
+
+<h3>Signature</h3>
+<pre><code>HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret
+)</code></pre>
+
+<h2>5. Trường hợp sử dụng</h2>
+<ul>
+    <li>Xác thực người dùng (login)</li>
+    <li>Phân quyền truy cập (role-based access)</li>
+    <li>Giao tiếp giữa các microservices</li>
+    <li>Sử dụng trong API REST stateless</li>
+    <li>Single Sign-On (SSO)</li>
+</ul>
+
+<h2>6. Kết luận</h2>
+<p>JWT là công cụ mạnh trong xác thực và phân quyền. Tuy nhiên cần dùng đúng cách để tránh các lỗ hổng bảo mật do không mã hóa payload và không thể thu hồi token khi bị lộ.</p>
+
+</body>
+</html>
